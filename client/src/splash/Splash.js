@@ -17,12 +17,18 @@ function Splash() {
                             <span className="text-3xl"><b>Join Feed today.</b></span>
                         </div>
                         <div className="w-96 flex flex-col">
-                            <button className="py-3 my-1 bg-white border font-bold border-light-grey rounded-full hover:bg-pale-grey">Sign up with Google</button>
-                            <button className="py-3 my-1 bg-white border font-bold border-light-grey rounded-full hover:bg-pale-grey">Sign up with Apple</button>
+                            <button className="py-3 my-1 bg-white-1 border font-bold border-grey-1 rounded-full flex items-center justify-center hover:bg-grey-1">
+                                <img className="h-5 w-5 mr-1" src="https://cdn.iconscout.com/icon/free/png-256/google-1772223-1507807.png" alt="google"></img>
+                                <span>Sign up with Google</span>
+                            </button>
+                            <button className="py-3 my-1 bg-white-1 border font-bold border-grey-1 rounded-full flex items-center justify-center hover:bg-grey-1">
+                               <img className="h-5 w-5 mr-1" src="https://cdn.iconscout.com/icon/free/png-256/apple-853-675472.png" alt="apple"></img> 
+                               <span>Sign up with Apple</span>
+                            </button>
                             <div className="flex justify-center">
                                 <span className="">or</span>
                             </div>
-                            <button className="py-3 my-1 bg-dark-green text-white font-bold border rounded-full hover:bg-green">Sign up with phone or email</button>
+                            <button className="py-3 my-1 bg-green-8 text-white-1 font-bold border rounded-full hover:bg-green-7">Sign up with phone or email</button>
                             <span className="py-1 text-xs">
                                 By signing up, you agree to the 
                                 <a className="text-green" href="/"> Terms of Service</a> and 
@@ -32,12 +38,12 @@ function Splash() {
                         </div>
                         <div className="my-16 w-96 flex flex-col">
                             <span className="py-5 text-lg"><b>Already have an account?</b></span>
-                            <button className="py-3 my-1 bg-white border text-green font-bold border-light-grey rounded-full hover:bg-pale-grey">Sign In</button>
+                            <button className="py-3 my-1 bg-white-1 border text-green-5 font-bold border-grey-1 rounded-full hover:bg-grey-1">Sign In</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="w-full p-2 text-sm text-dark-grey flex flex-row flex-wrap justify-center">
+            <div className="w-full p-2 text-sm text-grey-7 flex flex-row flex-wrap justify-center">
                 <a className="p-2 hover:underline" href="/">About</a>
                 <a className="p-2 hover:underline" href="/">Help Center</a>
                 <a className="p-2 hover:underline" href="/">Terms of Service</a>

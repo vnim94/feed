@@ -31,9 +31,9 @@ function Splash() {
                             <button className="py-3 my-1 bg-green-8 text-white-1 font-bold border rounded-full hover:bg-green-7">Sign up with phone or email</button>
                             <span className="py-1 text-xs">
                                 By signing up, you agree to the 
-                                <a className="text-green" href="/"> Terms of Service</a> and 
-                                <a className="text-green" href="/"> Privacy Policy</a>, including 
-                                <a className="text-green" href="/"> Cookie Use</a>.
+                                <a className="text-green-5" href="/"> Terms of Service</a> and 
+                                <a className="text-green-5" href="/"> Privacy Policy</a>, including 
+                                <a className="text-green-5" href="/"> Cookie Use</a>.
                             </span>
                         </div>
                         <div className="my-16 w-96 flex flex-col">

@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
+import Splash from './splash/Splash';
 
 function App() {
     return (
         <Router>
             <Routes>
-                <Route index element={<h1 className="text-5xl font-bold underline">feed</h1>} />
+                <Route index element={<Splash/>} />
             </Routes>
         </Router>
     )

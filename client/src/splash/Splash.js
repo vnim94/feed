@@ -17,11 +17,11 @@ function Splash() {
                             <span className="text-3xl"><b>Join Feed today.</b></span>
                         </div>
                         <div className="w-80 flex flex-col">
-                            <button className="py-3 my-1 bg-white-1 border font-bold border-grey-1 rounded-full flex items-center justify-center hover:bg-grey-1">
+                            <button className="py-3 my-1 bg-white-1 border font-bold border-grey-4 rounded-full flex items-center justify-center hover:bg-grey-1">
                                 <img className="h-5 w-5 mr-1" src="https://cdn.iconscout.com/icon/free/png-256/google-1772223-1507807.png" alt="google"></img>
                                 <span>Sign up with Google</span>
                             </button>
-                            <button className="py-3 my-1 bg-white-1 border font-bold border-grey-1 rounded-full flex items-center justify-center hover:bg-grey-1">
+                            <button className="py-3 my-1 bg-white-1 border font-bold border-grey-4 rounded-full flex items-center justify-center hover:bg-grey-1">
                                <img className="h-5 w-5 mr-1" src="https://cdn.iconscout.com/icon/free/png-256/apple-853-675472.png" alt="apple"></img> 
                                <span>Sign up with Apple</span>
                             </button>
@@ -38,7 +38,7 @@ function Splash() {
                         </div>
                         <div className="my-16 w-80 flex flex-col">
                             <span className="py-5 text-lg"><b>Already have an account?</b></span>
-                            <button className="py-3 my-1 bg-white-1 border text-green-5 font-bold border-grey-1 rounded-full hover:bg-grey-1">Sign In</button>
+                            <button className="py-3 my-1 bg-white-1 border text-green-5 font-bold border-grey-4 rounded-full hover:bg-grey-1">Sign In</button>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,9 @@
+import { useNavigate } from 'react-router-dom';
+
 function Splash() {
+
+    const navigate = useNavigate();
+
     return (
         <div className="h-screen flex flex-col justify-between">
             <div className="h-full flex flex-row">
@@ -28,7 +33,7 @@ function Splash() {
                             <div className="flex justify-center">
                                 <span className="">or</span>
                             </div>
-                            <button className="py-3 my-1 bg-green-8 text-white-1 font-bold border rounded-full hover:bg-green-7">Sign up with phone or email</button>
+                            <button className="py-3 my-1 bg-green-8 text-white-1 font-bold border rounded-full hover:bg-green-7" onClick={() => navigate('signup')}>Sign up with phone or email</button>
                             <span className="py-1 text-xs">
                                 By signing up, you agree to the 
                                 <a className="text-green-5" href="/"> Terms of Service</a> and 
@@ -38,7 +43,7 @@ function Splash() {
                         </div>
                         <div className="my-16 w-80 flex flex-col">
                             <span className="py-5 text-lg"><b>Already have an account?</b></span>
-                            <button className="py-3 my-1 bg-white-1 border text-green-5 font-bold border-grey-4 rounded-full hover:bg-grey-1">Sign In</button>
+                            <button className="py-3 my-1 bg-white-1 border text-green-5 font-bold border-grey-4 rounded-full hover:bg-grey-1" onClick={() => navigate('login')}>Sign In</button>
                         </div>
                     </div>
                 </div>

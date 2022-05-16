@@ -3,9 +3,59 @@ import { useNavigate } from 'react-router-dom';
 import { getDays } from '../util/helpers';
 
 export function Login() {
-    return (
-        <div>
 
+    const navigate = useNavigate();
+
+    const loginField = useRef();
+    const [loginFocused, setLoginFocused] = useState(false);
+    const [login, setLogin] = useState('');
+
+    return (
+        <div className="fixed top-0 left-0 h-screen w-screen bg-grey-5 flex flex-row justify-center items-center">
+            <div className="relative bg-white-1 rounded-xl">
+                <span className="absolute cursor-pointer left-3 top-3 p-1 material-icons-outlined rounded-full hover:bg-grey-3" onClick={() => navigate('/')}>close</span>
+                <div className="flex flex-row justify-center mt-2">
+                    <img className="h-12 w-12 rounded-full" src="/phunky-panda.png" alt="avatar"></img>
+                </div>
+                <div className="h-[600px] w-[600px] flex flex-col items-center">
+                    <div className="w-1/2">
+                        <div className="py-8">
+                            <span className="font-bold text-3xl">Create your account</span>
+                        </div>
+                        <div className="flex flex-col">
+                            <button className="py-2 my-1 bg-white-1 border font-bold border-grey-4 rounded-full flex items-center justify-center hover:bg-grey-1">
+                                <img className="h-5 w-5 mr-1" src="https://cdn.iconscout.com/icon/free/png-256/google-1772223-1507807.png" alt="google"></img>
+                                <span>Sign up with Google</span>
+                            </button>
+                            <button className="py-2 mt-5 bg-white-1 border font-bold border-grey-4 rounded-full flex items-center justify-center hover:bg-grey-1">
+                               <img className="h-5 w-5 mr-1" src="https://cdn.iconscout.com/icon/free/png-256/apple-853-675472.png" alt="apple"></img> 
+                               <span>Sign up with Apple</span>
+                            </button>
+                        </div>
+                        <div className="py-2 flex flex-row items-center">
+                            <div class="flex-grow border-t border-grey-4"></div>
+                            <span className="text-base px-2 mb-1">or</span>
+                            <div class="flex-grow border-t border-grey-4"></div>
+                        </div>
+                        <div className={`${loginFocused && 'outline outline-1 outline-green-7 border-green-7'} relative border border-grey-4 rounded-md p-2 pt-7 flex flex-col`} onClick={() => loginField.current.focus()}>
+                            <label className={`absolute text-grey-6 duration-100 ${loginFocused || login.length > 0 ? 'text-sm top-1' : 'text-lg top-3.5'}`}>Phone, email, or username</label>
+                            <input ref={loginField} className="outline-none" type="text" onFocus={() => setLoginFocused(true)} onBlur={() => setLoginFocused(false)} value={login} onChange={(e) => setLogin(e.target.value)}></input>
+                        </div>
+                        <div className="flex flex-col">
+                            <button className="py-2 mt-5 bg-black-4 border font-bold text-white-1 border-grey-4 rounded-full flex items-center justify-center hover:bg-black-3">
+                               <span>Next</span>
+                            </button>
+                            <button className="py-2 mt-5 bg-white-1 border font-bold border-grey-4 rounded-full flex items-center justify-center hover:bg-grey-1">
+                               <span>Forgot password?</span>
+                            </button>
+                        </div>
+                        <div className="py-10">
+                            <span>Don't have an account? </span> 
+                            <span className="cursor-pointer text-green-6 hover:underline" onClick={() => navigate('/signup')}>Sign up</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
@@ -43,18 +93,18 @@ export function Signup() {
         } else {
             setContactMethod('Phone')
         }
-        contact.length > 0 && setContact('');
+        if (contact.length > 0) setContact('');
     }
 
     const validContact = (contact) => {
-        if (contact.length > 0 && (contactMethod === 'Phone' && contact.match('[^0-9]') || contactMethod === 'Email' && !contact.match('[.*@.*\.com'))) {
+        if (contact.length > 0 && ((contactMethod === 'Phone' && contact.match('[^0-9]')) || (contactMethod === 'Email' && !contact.match('.*@.*.com')))) {
             return true;
         }
         return false;
     }
 
     return (
-        <div className="h-screen w-screen bg-grey-5 flex flex-row justify-center items-center z-100">
+        <div className="fixed top-0 left-0 h-screen w-screen bg-grey-6 bg-opacity-80 flex flex-row justify-center items-center z-10">
             <div className="relative bg-white-1 rounded-xl">
                 <span className="absolute cursor-pointer left-3 top-3 p-1 material-icons-outlined rounded-full hover:bg-grey-3" onClick={() => navigate('/')}>close</span>
                 <div className="flex flex-row justify-center mt-2">

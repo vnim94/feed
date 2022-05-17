@@ -1,7 +1,7 @@
 export function Navbar() {
     return (
-        <div className="w-2/5 flex flex-col justify-between py-3">
-            <div className="">
+        <div className="p-5 w-2/6 flex flex-col justify-between">
+            <div>
                 <img className="p-1 h-14 w-14 rounded-full cursor-pointer border" src="/phunky-panda.png" alt="avatar"></img>
                 <div className="mb-5 flex flex-col items-start">
                     <NavButton icon="home" text="Home" selected={true}/>

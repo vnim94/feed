@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function Feed({ children }) {
+function Feed() {
 
     const [inputFocused, setInputFocused] = useState(false);
 
@@ -16,9 +16,9 @@ function Feed({ children }) {
                         <img className="h-14 w-14 border border-grey-4 rounded-full" src="/phunky-panda.png" alt="avatar"></img>
                     </div>
                     <div className="flex flex-grow flex-col">
-                        <div className="p-2 border-b border-b-grey-3">
+                        <div className="p-2">
                             <textarea className="pt-2 w-full text-xl appearance-none outline-none resize-none" placeholder="What's happening?" onFocus={() => setInputFocused(true)}></textarea>
-                            {inputFocused && <div className="flex flex-row items-center">
+                            {inputFocused && <div className="flex flex-row items-center border-b border-b-grey-3">
                                 <span className="mr-2 text-lg text-green-7 material-icons-outlined">public</span>
                                 <span className="text-green-7 font-semibold text-sm">Everyone can reply</span>
                             </div>}
@@ -37,15 +37,50 @@ function Feed({ children }) {
                     </div>
                 </div>
             </div>
-            {children}
+            <Card />
+            <Card />
         </div>
     )
 }
 
 function Card() {
     return (
-        <div>
+        <div className="p-5 w-full border-b border-b-grey-3 flex flex-row">
+            <div className="mr-3">
+                <img className="h-14 w-14 border border-grey-4 rounded-full" src="/phunky-panda.png" alt="avatar"></img>
+            </div>
+            <div className="flex flex-col flex-grow">
+                <div className="flex flex-row items-center justify-between">
+                    <div className="space-x-1">
+                        <a className="font-semibold hover:underline">Forbes</a>
+                        <span className="text-grey-5">@Forbes</span>
+                        <span>&#183;</span>
+                        <span className="text-grey-5">3m</span>
+                    </div>
+                    <span className="py-1 px-2 text-xl material-icons-outlined rounded-full hover:bg-green-1 cursor-pointer">more_horiz</span>
+                </div>
+                <div>
+                    <p></p>
+                </div>
+                <div>
+                    <img></img>
+                </div>
+                <div className="grid grid-cols-4">
+                    <CardButton icon="mode_comment" count={146}/>
+                    <CardButton icon="shortcut" count={146}/>
+                    <CardButton icon="favorite_border" count={146}/>
+                    <CardButton icon="ios_share"/>
+                </div>
+            </div>
+        </div>
+    )
+}
 
+function CardButton({ icon, count }) {
+    return (
+        <div className="flex flex-row items-center">
+            <span className="py-1 px-2 text-xl material-icons-outlined rounded-full hover:bg-green-1 cursor-pointer">{icon}</span>
+            <span className="text-sm text-grey-5">{count}</span>
         </div>
     )
 }

@@ -5,7 +5,7 @@ function Feed() {
     const [inputFocused, setInputFocused] = useState(false);
 
     return (
-        <div className="w-3/4 flex flex-col border-l border-r border-l-grey-3 border-r-grey-3">
+        <div className="flex flex-col border-l border-r border-l-grey-3 border-r-grey-3">
             <div className="px-5 pt-5 border-b border-b-grey-3">
                 <div className="pb-3 sticky flex flex-row items-center justify-between">
                     <span className="font-bold text-xl">Home</span>
@@ -43,7 +43,7 @@ function Feed() {
     )
 }
 
-function Card() {
+function Card({ link }) {
     return (
         <div className="p-5 w-full border-b border-b-grey-3 flex flex-row">
             <div className="mr-3">
@@ -52,7 +52,7 @@ function Card() {
             <div className="flex flex-col flex-grow">
                 <div className="flex flex-row items-center justify-between">
                     <div className="space-x-1">
-                        <a className="font-semibold hover:underline">Forbes</a>
+                        <a className="font-semibold hover:underline" href={link}>Forbes</a>
                         <span className="text-grey-5">@Forbes</span>
                         <span>&#183;</span>
                         <span className="text-grey-5">3m</span>
@@ -63,7 +63,7 @@ function Card() {
                     <p></p>
                 </div>
                 <div>
-                    <img></img>
+                    <img alt="card"></img>
                 </div>
                 <div className="grid grid-cols-4">
                     <CardButton icon="mode_comment" count={146}/>

@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import Splash from './splash/Splash';
 import { Login, Signup } from './user/Form';
-import Home from './home/Home';
+import Home from './pages/Home';
 
 function App() {
     return (

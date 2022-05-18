@@ -1,8 +1,11 @@
 import { useState } from 'react';
 
 function Aside() {
+
+    const [more, setMore] = useState(false);
+
     return (
-        <div className="p-3 flex flex-col space-y-3">
+        <div className="p-3 flex flex-col space-y-4">
             <SearchBar/>
             <div className="bg-grey-2 rounded-xl">
                 <div className="p-3">
@@ -16,6 +19,32 @@ function Aside() {
                     <span className="font-bold text-xl">Who to follow</span>
                 </div>
                 <WhoItem name="Name" tag="@Name"/>
+            </div>
+            <div className="flex flex-row flex-wrap items-center text-sm text-grey-5">
+                <a className="mr-2 hover:underline" href="/">Terms of Service</a>
+                <a className="mr-2 hover:underline" href="/">Privacy Policy</a>
+                <a className="mr-2 hover:underline" href="/">Cookie Policy</a>
+                <a className="mr-2 hover:underline" href="/">Accessibility</a>
+                <a className="mr-2 hover:underline" href="/">Ads info</a>
+                <div className="relative mr-2 flex flex-row items-center">
+                    {more && <div className="absolute bottom-0 w-48 flex flex-col bg-white-1 shadow-lg rounded-xl">
+                        <div className="p-3 cursor-pointer">
+                            <a className="text-base" href="/">About</a>
+                        </div>
+                        <div className="p-3 cursor-pointer">
+                            <a className="text-base" href="/">Status</a>
+                        </div>
+                        <div className="p-3 cursor-pointer">
+                            <a className="text-base" href="/">Feed for Business</a>
+                        </div>
+                        <div className="p-3 cursor-pointer">
+                            <a className="text-base" href="/">Developers</a>
+                        </div>
+                    </div>}
+                    <span className="mr-0.5 hover:underline cursor-pointer" onClick={() => setMore(true)}>More</span>
+                    <span className="text-sm material-icons-outlined">more_horiz</span>
+                </div>
+                <span>© 2022 Feed, Inc.</span>
             </div>
         </div>
     )

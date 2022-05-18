@@ -4,8 +4,8 @@ import Aside from '../components/Aside';
 
 function Home() {
     return (
-        <div className="h-screen w-screen flex flex-row justify-center">
-            <div className="max-w-7xl w-full grid grid-cols-[1fr_3fr_2fr]">
+        <div className="flex flex-row justify-center">
+            <div className="max-w-7xl grid grid-cols-[1fr_2.5fr_1.5fr]">
                 <Navbar/>
                 <Feed/>
                 <Aside/>

@@ -48,8 +48,11 @@ function Card({ link }) {
             </div>
             <div className="flex flex-col flex-grow">
                 <div className="flex flex-row items-center justify-between">
-                    <div className="space-x-1">
-                        <a className="font-semibold hover:underline" href={link}>Forbes</a>
+                    <div className="flex flex-row items-center space-x-1">
+                        <div className="flex flex-row items-center space-x-1">
+                            <a className="font-semibold hover:underline" href={link}>Forbes</a>
+                            <span className="text-lg material-icons">verified</span>
+                        </div>
                         <span className="text-grey-5">@Forbes</span>
                         <span className="text-grey-5">&#183;</span>
                         <span className="text-grey-5">3m</span>

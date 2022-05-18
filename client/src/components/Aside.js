@@ -151,13 +151,16 @@ function WhatItem({ heading, text, topic, icon, img, live }) {
     )
 }
 
-function WhoItem({ name, tag }) {
+function WhoItem({ name, tag, link }) {
     return (
         <div className="p-3 flex flex-row items-center justify-between hover:bg-grey-1 cursor-pointer">
             <div className="flex flex-row space-x-2">
                 <img className="h-14 w-14 rounded-full" src="/phunky-panda.png" alt="avatar"></img>
                 <div className="flex flex-col">
-                    <span className="font-semibold">{name}</span>
+                    <div className="flex flex-row items-center space-x-1">
+                        <a className="font-semibold hover:underline" href={link}>Name</a>
+                        <span className="text-lg material-icons">verified</span>
+                    </div>
                     <span className="text-grey-5">{tag}</span>
                 </div>
             </div>

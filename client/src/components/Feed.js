@@ -45,8 +45,8 @@ function Feed() {
 
 function Card({ link }) {
     return (
-        <div className="p-5 w-full border-b border-b-grey-3 flex flex-row">
-            <div className="mr-3">
+        <div className="px-3 pt-1 pb-1 w-full border-b border-b-grey-3 flex flex-row">
+            <div className="mt-2 mr-3">
                 <img className="h-14 w-14 border border-grey-4 rounded-full" src="/phunky-panda.png" alt="avatar"></img>
             </div>
             <div className="flex flex-col flex-grow">
@@ -54,7 +54,7 @@ function Card({ link }) {
                     <div className="space-x-1">
                         <a className="font-semibold hover:underline" href={link}>Forbes</a>
                         <span className="text-grey-5">@Forbes</span>
-                        <span>&#183;</span>
+                        <span className="text-grey-5">&#183;</span>
                         <span className="text-grey-5">3m</span>
                     </div>
                     <span className="py-1 px-2 text-xl material-icons-outlined rounded-full hover:bg-green-1 cursor-pointer">more_horiz</span>

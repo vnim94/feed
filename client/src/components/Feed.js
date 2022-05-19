@@ -5,12 +5,12 @@ function Feed() {
     const [inputFocused, setInputFocused] = useState(false);
 
     return (
-        <div>
-            <div className="px-5 py-3 sticky top-0 flex flex-row items-center justify-between bg-white-1 bg-opacity-70">
+        <div className="border border-x-grey-3 ">
+            <div className="px-4 py-3 sticky top-0 flex flex-row items-center justify-between bg-white-1 bg-opacity-70">
                 <span className="font-bold text-xl">Home</span>
                 <span className="material-icons-outlined">auto_awesome</span>
             </div>
-            <div className="px-5 flex flex-row flex-grow border-b border-b-grey-3">
+            <div className="px-4 flex flex-row flex-grow border-b border-b-grey-3">
                 <div className="mr-1">
                     <img className="h-14 w-14 border border-grey-4 rounded-full" src="/phunky-panda.png" alt="avatar"></img>
                 </div>
@@ -42,7 +42,7 @@ function Feed() {
 
 function Card({ link }) {
     return (
-        <div className="px-5 py-2 w-full border-b border-b-grey-3 grid grid-cols-[1fr_8fr]">
+        <div className="px-4 py-2 w-full border-b border-b-grey-3 grid grid-cols-[1fr_8fr]">
             <div className="mt-2 mr-3">
                 <img className="h-14 w-14 border border-grey-4 rounded-full" src="/phunky-panda.png" alt="avatar"></img>
             </div>

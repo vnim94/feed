@@ -2,7 +2,6 @@ import { useState } from 'react';
 import SearchBar from './Search';
 
 function Aside() {
-
     const [more, setMore] = useState(false);
 
     return (
@@ -86,7 +85,7 @@ function WhoItem({ name, tag, link }) {
                 <img className="h-14 w-14 rounded-full" src="/phunky-panda.png" alt="avatar"></img>
                 <div className="flex flex-col">
                     <div className="flex flex-row items-center space-x-1">
-                        <a className="font-semibold hover:underline" href={link}>Name</a>
+                        <a className="font-semibold hover:underline" href={link}>{name}</a>
                         <span className="text-lg material-icons">verified</span>
                     </div>
                     <span className="text-grey-5">{tag}</span>

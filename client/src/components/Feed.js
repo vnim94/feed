@@ -51,7 +51,7 @@ function Card({ link }) {
                     <div className="flex flex-row items-center space-x-1">
                         <div className="flex flex-row items-center space-x-1">
                             <a className="font-semibold hover:underline" href={link}>Forbes</a>
-                            <span className="text-lg material-icons">verified</span>
+                            <span className="text-lg text-green-7 material-icons">verified</span>
                         </div>
                         <span className="text-grey-5">@Forbes</span>
                         <span className="text-grey-5">&#183;</span>

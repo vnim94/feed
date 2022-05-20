@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom
 import Splash from './splash/Splash';
 import { Login, Signup } from './user/Form';
 import Home from './pages/Home';
+import Explore from './pages/Explore';
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
                     <Route path="signup" element={<Signup/>} />
                 </Route>
                 <Route path="home" element={<Home/>}/>
+                <Route path="explore" element={<Explore/>}/>
             </Routes>
         </Router>
     )

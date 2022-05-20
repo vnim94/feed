@@ -1,19 +1,23 @@
 import { useState } from 'react';
 
-function Feed() {
+function Feed({ children }) {
     return (
         <div className="border border-x-grey-3 ">
-            <div className="px-4 py-3 sticky top-0 flex flex-row items-center justify-between bg-white-1 bg-opacity-70">
-                <span className="font-bold text-xl">Home</span>
-                <span className="material-icons-outlined">auto_awesome</span>
-            </div>
-            <FeedBox/>
-            {Array(10).fill().map((_,index) => <Card key={index}/>)}
+            {children}
         </div>
     )
 }
 
-function FeedBox() {
+export function HomeBanner() {
+    return (
+        <div className="px-4 py-3 sticky top-0 flex flex-row items-center justify-between bg-white-1 bg-opacity-70">
+            <span className="font-bold text-xl">Home</span>
+            <span className="material-icons-outlined">auto_awesome</span>
+        </div>
+    )
+}
+
+export function FeedBox() {
     const [inputFocused, setInputFocused] = useState(false);
 
     return (
@@ -45,7 +49,7 @@ function FeedBox() {
     )
 }
 
-function Card({ link }) {
+export function Card({ link }) {
     return (
         <div className="px-4 py-2 w-full border-b border-b-grey-3 grid grid-cols-[1fr_8fr]">
             <div className="mt-2 mr-3">

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 function Feed({ children }) {
     return (
-        <div className="border border-x-grey-3 ">
+        <div className="border border-x-grey-3">
             {children}
         </div>
     )
@@ -13,6 +13,18 @@ export function HomeBanner() {
         <div className="px-4 py-3 sticky top-0 flex flex-row items-center justify-between bg-white-1 bg-opacity-70">
             <span className="font-bold text-xl">Home</span>
             <span className="material-icons-outlined">auto_awesome</span>
+        </div>
+    )
+}
+
+export function SectionBanner({ heading }) {
+    return (
+        <div className="px-4 py-3 sticky top-0 flex flex-row items-center justify-between bg-white-1 bg-opacity-70">
+            <div className="flex flex-row items-center space-x-3">
+                <span className="text-green-7 material-icons">comment</span>
+                <span className="font-bold text-xl">{heading}</span>
+            </div>
+            <span className="px-1 py-1 text-grey-5 material-icons-outlined hover:bg-green-1 rounded-full cursor-pointer">more_horiz</span>
         </div>
     )
 }
@@ -51,7 +63,7 @@ export function FeedBox() {
 
 export function Card({ link }) {
     return (
-        <div className="px-4 py-2 w-full border-b border-b-grey-3 grid grid-cols-[1fr_8fr]">
+        <div className="px-4 py-2 w-full border-b border-b-grey-3 grid grid-cols-[1fr_8fr] hover:bg-grey-1 cursor-pointer">
             <div className="mt-2 mr-3">
                 <img className="h-14 w-14 border border-grey-4 rounded-full" src="/phunky-panda.png" alt="avatar"></img>
             </div>
@@ -94,6 +106,54 @@ function CardButton({ icon, count }) {
         <div className="flex flex-row items-center">
             <span className="py-1 px-2 text-xl material-icons-outlined rounded-full hover:bg-green-1 cursor-pointer">{icon}</span>
             <span className="text-sm text-grey-5">{count}</span>
+        </div>
+    )
+}
+
+export function ImgCard({ heading, text, topic, live }) {
+    return (
+        <div className="h-80 w-full flex flex-col justify-end bg-[url('https://cdn.creatureandcoagency.com/uploads/2014/04/Panda-Facts-Featured.jpg')] cursor-pointer">
+            <div className="p-5">
+                <div className="flex flex-row space-x-1 text-sm text-white-1">
+                    <span>{topic}</span>
+                    {live && <>
+                        <span>&#183;</span>
+                        <span>LIVE</span>
+                    </>}
+                </div>
+                <div className="flex flex-row items-center justify-between">
+                    <span className="text-2xl font-bold text-white-1">{heading}</span>
+                </div>
+                <div>
+                    <span className="text-white-1">{text}</span>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export function TrendCard({ heading, ranking, text, img }) {
+    return (
+        <div className="p-3 flex flex-row justify-between hover:bg-grey-1 cursor-pointer">
+            <div>
+                <div className="flex flex-row space-x-1">
+                    <div>
+                        <span className="text-sm text-grey-5">{ranking}</span>
+                        <span className="text-sm text-grey-5">&#183;</span>
+                        <span className="text-sm text-grey-5">Trending</span>
+                    </div>
+                    <span className="px-1 py-1 text-grey-5 material-icons-outlined hover:bg-green-1 rounded-full cursor-pointer">more_horiz</span>
+                </div>
+                <div className="flex flex-row items-center justify-between">
+                    <span className="font-bold">{heading}</span>
+                </div>
+                <div>
+                    <span className="text-grey-5">{text}</span>
+                </div>
+            </div>
+            <div>
+                {img && <img alt="small"></img>}
+            </div>
         </div>
     )
 }

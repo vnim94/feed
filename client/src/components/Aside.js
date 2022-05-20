@@ -60,8 +60,8 @@ export function AsideCard({ children, heading }) {
 
 export function WhatItem({ heading, text, topic, icon, img, live }) {
     return (
-        <div className="p-3 flex flex-row hover:bg-grey-1 cursor-pointer">
-            <div className="flex flex-col flex-grow">
+        <div className="p-3 flex flex-row justify-between hover:bg-grey-1 cursor-pointer">
+            <div>
                 <div className="flex flex-row space-x-1">
                     <span className="text-sm text-grey-5">{topic}</span>
                     {live && <>
@@ -76,8 +76,10 @@ export function WhatItem({ heading, text, topic, icon, img, live }) {
                     <span className="text-grey-5">{text}</span>
                 </div>
             </div>
-            {img && <img alt="small"></img>}
-            {icon && <span className="px-1 text-grey-5 material-icons-outlined hover:bg-green-1 rounded-full">more_horiz</span>}
+            <div>
+                {img && <img alt="small"></img>}
+                {icon && <span className="px-1 py-1 text-grey-5 material-icons-outlined hover:bg-green-1 rounded-full cursor-pointer">more_horiz</span>}
+            </div>
         </div>
     )
 }

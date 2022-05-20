@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 function NavBar({ selected }) {
     return (
-        <div>
+        <div className="w-64 h-screen">
             <div className="fixed top-0 w-64">
                 <div className="pt-4 px-2 h-screen flex flex-col justify-between">
                     <div className="space-y-3">

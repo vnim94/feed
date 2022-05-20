@@ -5,7 +5,7 @@ function SearchBar() {
     const [searchFocused, setSearchFocused] = useState(false);
 
     return (
-        <div className="relative">
+        <div className="relative flex flex-row flex-grow">
             <div className={`${searchFocused ? 'bg-white-1 border-green-7' : 'bg-grey-2 border-transparent'} px-3 py-2 w-full flex flex-row items-center justify-between rounded-full border`}>
                 <span className="material-icons-outlined">search</span>
                 <input className="px-3 appearance-none outline-none bg-transparent flex-grow" placeholder="Search Feed" value={search} onChange={(e) => setSearch(e.target.value)} onFocus={() => setSearchFocused(true)} onBlur={() => setSearchFocused(false)}></input>

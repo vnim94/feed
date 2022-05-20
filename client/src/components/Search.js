@@ -19,7 +19,7 @@ function SearchBar() {
 
 function SearchResults() {
     return (
-        <div className="absolute w-full flex flex-col bg-white-1 shadow-lg rounded-xl overflow-y-scroll">
+        <div className="absolute top-12 w-full flex flex-col bg-white-1 shadow-lg rounded-xl overflow-y-scroll">
             <SearchResult name="Forbes" tag="@Forbes" description="Official account of Forbes, the world's leading voice for entrepreneurial success and free enterprise, and home to breaking news, business, money and more."/>
             <SearchResult name="Forbes" tag="@Forbes" description="Official account of Forbes, the world's leading voice for entrepreneurial success and free enterprise, and home to breaking news, business, money and more."/>
         </div>
@@ -43,7 +43,7 @@ function SearchResult({ name, tag, description }) {
 
 function RecentResults() {
     return (
-        <div className="absolute w-full flex flex-col bg-white-1 shadow-lg rounded-xl">
+        <div className="absolute top-12 w-full flex flex-col bg-white-1 shadow-lg rounded-xl">
             <div className="p-3 flex flex-row justify-between items-center">
                 <span className="font-bold text-xl">Recent</span>
                 <div className="px-3 rounded-full hover:bg-green-1 cursor-pointer">
@@ -57,13 +57,15 @@ function RecentResults() {
 
 function RecentResult({ name, tag }) {
     return (
-        <div className="grid grid-cols-[1fr_2fr_1fr] gap-x-1 items-center p-3 hover:bg-grey-1 cursor-pointer">
-            <div>
-                <img className="h-14 w-14 rounded-full" src="/phunky-panda.png" alt="avatar"></img>
-            </div>
-            <div className="flex flex-col">
-                <span className="font-semibold">{name}</span>
-                <span className="text-grey-5">{tag}</span>
+        <div className="p-3 flex flex-row justify-between items-center hover:bg-grey-1 cursor-pointer">
+            <div className="flex flex-row">
+                <div className="mr-3">
+                    <img className="h-14 w-14 rounded-full" src="/phunky-panda.png" alt="avatar"></img>
+                </div>
+                <div className="flex flex-col">
+                    <span className="font-semibold">{name}</span>
+                    <span className="text-grey-5">{tag}</span>
+                </div>
             </div>
             <div className="flex flex-row justify-end">
                 <span className="text-green-7 px-2 py-0.5 rounded-full text-lg material-icons-outlined cursor-pointer hover:bg-green-1 ">close</span>

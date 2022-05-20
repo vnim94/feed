@@ -77,7 +77,7 @@ export function WhatItem({ heading, text, topic, icon, img, live }) {
                 </div>
             </div>
             <div>
-                {img && <img alt="small"></img>}
+                {img && <img className="h-16 w-16" src={img} alt="small"></img>}
                 {icon && <span className="px-1 py-1 text-grey-5 material-icons-outlined hover:bg-green-1 rounded-full cursor-pointer">more_horiz</span>}
             </div>
         </div>

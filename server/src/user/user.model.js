@@ -8,13 +8,16 @@ const UserSchema = new mongoose.Schema({
         maxLength: 25,
         required: true
     },
-    email: {
+    email: String,
+    phone: String,
+    username: {
         type: String,
-        required: true
+        default: function() { return this.email.split('@')[0] }
     },
     password: {
         type: String,
         minLength: 5,
+        maxLength: 25,
         required: true
     }
 })

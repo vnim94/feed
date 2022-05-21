@@ -14,6 +14,12 @@ exports.disconnect = async () => {
     await database.stop();
 }
 
-exports.seed = async () => {
+const User = require('../src/user/user.model');
 
+exports.seed = async () => {
+    await User.create({
+        name: 'John Smith',
+        email: 'jsmith@email.com',
+        password: 'password'
+    });
 }

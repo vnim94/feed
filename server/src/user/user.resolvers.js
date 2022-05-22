@@ -1,4 +1,7 @@
+require('dotenv').config();
 const User = require('./user.model');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const UserResolvers = {
     Query: {
@@ -10,6 +13,21 @@ const UserResolvers = {
         }
     },
     Mutation: {
+        login: async (_, { login, password }) => {
+            let user;
+            if (login.match('@')) {
+                user = await User.findOne({ email: login });
+            } else if (login.match('[^0-9].*')) {
+                user = await User.findOne({ username: login }) 
+            } else {
+                user = await User.findOne({ phone: login });
+            }
+
+            if (user && bcrypt.compareSync(password, user.password)) {
+                const token = jwt.sign(user._id.toString(), process.env.TOKEN_SECRET);
+                return { token, user };
+            }
+        },
         createUser: async (_, { user }) => {
             return await User.create(user);
         },

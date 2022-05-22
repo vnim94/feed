@@ -1,23 +1,26 @@
 const { Schema, model } = require('mongoose');
 
-const TweetSchema = new Schema({
+const ReplySchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
-    image: String,
+    tweet: {
+        type: Schema.Types.ObjectId,
+        ref: 'Tweet',
+        required: true
+    },
     message: {
         type: String,
         minLength: 1,
-        maxLength: 280,
+        maxLength: 140,
         required: true
     },
-    tags: [String],
     date: {
         type: Date,
         default: Date.now
     }
 })
 
-module.exports = model('Tweet',TweetSchema);
+module.exports = model('Reply', ReplySchema);

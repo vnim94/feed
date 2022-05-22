@@ -127,6 +127,14 @@ describe('user resolvers', () => {
                 expect(response.data.login.user).toBeTruthy();
             })
 
+            test('invalid login', async () => {
+                const response = await tester.graphql(mutation, {}, {}, {
+                    login: 'invalid',
+                    password: 'abc'
+                })
+                expect(response.data.login).toBeFalsy();
+            })
+
             test('incorrect password', async () => {
                 const response = await tester.graphql(mutation, {}, {}, {
                     login: 'jsmith',

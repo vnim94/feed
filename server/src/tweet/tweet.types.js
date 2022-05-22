@@ -15,7 +15,7 @@ const TweetTypes = `
 
     type Query {
         tweet(id: ID!): Tweet!
-        tweets(user: ID): [Tweet]!
+        tweets(user: ID, tags: [String]): [Tweet]!
     }
 
     type Mutation {

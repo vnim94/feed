@@ -31,16 +31,52 @@ describe('tweet resolvers', () => {
             expect(response.data.tweet.message).toBe('This is a tweet');
         })
 
-        test('tweets', async () => {  
-            const query = `
-                {
-                    tweets {
-                        message
+        describe.only('tweets', () => {
+            test('all', async () => {  
+                const query = `
+                    {
+                        tweets {
+                            message
+                        }
                     }
-                }
-            `
-            const response = await tester.graphql(query, {}, {}, {});
-            expect(response.data.tweets[0].message).toBe('This is a tweet');
+                `
+                const response = await tester.graphql(query, {}, {}, {});
+                expect(response.data.tweets[0].message).toBe('This is a tweet');
+            })
+
+            test('by user', async () => {
+                const query = `
+                    {
+                        tweets(user: "${user._id}") {
+                            message
+                        }
+                    }
+                `
+                const response = await tester.graphql(query, {}, {}, {});
+                expect(response.data.tweets[0].message).toBe('This is a tweet');
+            })
+
+            test.only('by tags', async () => {
+                await Tweet.create({
+                    user: user._id.toString(),
+                    message: 'another tweet',
+                    tags: ['tagB']
+                })
+                const query = `
+                    query tweets($tags: [String]) {
+                        tweets(tags: $tags) {
+                            message
+                        }
+                    }
+                    
+                `
+                const response = await tester.graphql(query, {}, {}, {
+                    tags: ['tagB']
+                })
+                expect(response.data.tweets.length).toBe(1);
+                expect(response.data.tweets[0].message).toBe('another tweet');
+                
+            })
         })
     })
 

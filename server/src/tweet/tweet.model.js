@@ -13,6 +13,7 @@ const TweetSchema = new Schema({
         max: 280,
         required: true
     },
+    tags: [String],
     date: {
         type: Date,
         default: Date.now

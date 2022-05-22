@@ -1,5 +1,6 @@
 const TweetTypes = `
     type Tweet {
+        id: ID!
         user: User!
         image: String
         message: String!
@@ -7,9 +8,9 @@ const TweetTypes = `
     }
 
     input TweetInput {
-        user: ID!
         image: String
         message: String
+        tags: [String]
     }
 
     type Query {
@@ -19,7 +20,7 @@ const TweetTypes = `
 
     type Mutation {
         createTweet(input: TweetInput!): Tweet
-        updateTweet(id: ID!, message: String!): Tweet
+        updateTweet(id: ID!, input: TweetInput!): Tweet
         deleteTweet(id: ID!): Tweet
     }
 `

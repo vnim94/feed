@@ -28,5 +28,6 @@ exports.seed = async () => {
     await Tweet.create({
         user: user._id,
         message: 'This is a tweet',
+        tags: ['tagA']
     })
 }

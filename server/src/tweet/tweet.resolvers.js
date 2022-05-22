@@ -5,8 +5,11 @@ const TweetResolvers = {
         tweet: async (_, { id }) => {
             return await Tweet.findById(id);
         },
-        tweets: async (_, args) => {
-            return await Tweet.find(args);
+        tweets: async (_, { tags, user }) => {
+            const query = {}
+            if (tags) query.tags = { $in: tags };
+            if (user) query.user = user; 
+            return await Tweet.find(query);
         }
     },
     Mutation: {

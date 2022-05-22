@@ -16,12 +16,18 @@ const UserTypes = `
         password: String
     }
 
+    type AuthPayload {
+        token: String!
+        user: User!
+    }
+
     type Query {
         user(id: ID): User!
         users: [User]!
     }
 
     type Mutation {
+        login(login: String!, password: String!): AuthPayload
         createUser(user: UserInput!): User
         updateUser(id: ID!, user: UserInput!): User
         updateEmail(id: ID!, email: String!): User

@@ -20,6 +20,7 @@ exports.seed = async () => {
     await User.create({
         name: 'John Smith',
         email: 'jsmith@email.com',
+        phone: '0123456789',
         password: 'password'
     });
 }

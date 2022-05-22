@@ -87,6 +87,55 @@ describe('user resolvers', () => {
     })
 
     describe('mutation', () => {
+        describe.only('login', () => {
+
+            const mutation = `
+                mutation login($login: String!, $password: String!) {
+                    login(login: $login, password: $password) {
+                        token
+                        user {
+                            id
+                        }
+                    }
+                }
+            `
+
+            test('using phone', async () => {
+                const response = await tester.graphql(mutation, {}, {}, {
+                    login: '0123456789',
+                    password: 'password'
+                });
+                expect(response.data.login.token).toBeTruthy();
+                expect(response.data.login.user).toBeTruthy();
+            })
+
+            test('using email', async () => {
+                const response = await tester.graphql(mutation, {}, {}, {
+                    login: 'jsmith@email.com',
+                    password: 'password'
+                })
+                expect(response.data.login.token).toBeTruthy();
+                expect(response.data.login.user).toBeTruthy();
+            })
+
+            test('using username', async () => {
+                const response = await tester.graphql(mutation, {}, {}, {
+                    login: 'jsmith',
+                    password: 'password'
+                })
+                expect(response.data.login.token).toBeTruthy();
+                expect(response.data.login.user).toBeTruthy();
+            })
+
+            test('incorrect password', async () => {
+                const response = await tester.graphql(mutation, {}, {}, {
+                    login: 'jsmith',
+                    password: 'incorrect'
+                })
+                expect(response.data.login).toBeFalsy();
+            })
+        })
+
         test('createUser', async () => {
             const mutation = `
                 mutation CreateUser($user: UserInput!) {

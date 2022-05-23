@@ -87,7 +87,7 @@ describe('user resolvers', () => {
     })
 
     describe('mutation', () => {
-        describe.only('login', () => {
+        describe('login', () => {
 
             const mutation = `
                 mutation login($login: String!, $password: String!) {
@@ -177,7 +177,7 @@ describe('user resolvers', () => {
                     }
                 }
             `
-            const response = await tester.graphql(mutation,{},{},{
+            const response = await tester.graphql(mutation,{},{ userId: user._id.toString() },{
                 id: user._id.toString(),
                 user: {
                     name: 'updated',
@@ -195,7 +195,7 @@ describe('user resolvers', () => {
                     }
                 }
             `
-            const response = await tester.graphql(mutation,{},{},{
+            const response = await tester.graphql(mutation,{},{ userId: user._id.toString() },{
                 id: user._id.toString(),
                 email: 'updated@email.com'
             })
@@ -210,7 +210,7 @@ describe('user resolvers', () => {
                     }
                 }
             `
-            const response = await tester.graphql(mutation,{},{},{
+            const response = await tester.graphql(mutation,{},{ userId: user._id.toString() },{
                 id: user._id.toString(),
                 phone: '0123456789'
             })
@@ -225,7 +225,7 @@ describe('user resolvers', () => {
                     }
                 }
             `
-            const response = await tester.graphql(mutation,{},{},{ id: user._id.toString() });
+            const response = await tester.graphql(mutation,{},{ userId: user._id.toString() },{ id: user._id.toString() });
             expect(response.data.deleteUser.id).toBe(user._id.toString());
         })
     })

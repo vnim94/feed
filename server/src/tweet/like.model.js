@@ -1,12 +1,7 @@
 const { Schema, model } = require('mongoose');
 
-const MentionSchema = new Schema({
+const LikeSchema = new Schema({
     user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    mentioned: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
@@ -20,11 +15,7 @@ const MentionSchema = new Schema({
         type: String,
         enum: ['Tweet','Reply'],
         required: true
-    },
-    seen: { 
-        type: Boolean,
-        default: false
     }
 })
 
-module.exports = model('Mention', MentionSchema);
+module.exports = model('Like', LikeSchema);

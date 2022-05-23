@@ -1,5 +1,6 @@
 require('dotenv').config();
 const User = require('./user.model');
+const Follower = require('./follower.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -10,6 +11,12 @@ const UserResolvers = {
         },
         users: async () => {
             return await User.find({});
+        },
+        followers: async (_, { user }) => {
+            return await Follower.find({ follows: user }).populate('user');
+        },
+        following: async (_, { user }) => {
+            return await Follower.find({ user }).populate('follows');
         }
     },
     Mutation: {

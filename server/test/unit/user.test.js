@@ -1,4 +1,5 @@
 const User = require('../../src/user/user.model');
+const Follower = require('../../src/user/follower.model');
 const mockDatabase = require('../../util/memoryDatabase');
 const bcrypt = require('bcryptjs');
 const { typeDefs, resolvers } = require('../../schema');
@@ -83,6 +84,40 @@ describe('user resolvers', () => {
             `
             const response = await tester.graphql(query, {}, {}, {});
             expect(response.data.users[0].name).toBe('John Smith');
+        })
+
+        test('get user followers', async () => {
+            const query = `
+                { 
+                    followers(user: "${user._id}") {
+                        user {
+                            name
+                            username
+                            bio
+                        }
+                    }
+                }
+            `
+            const response = await tester.graphql(query, {}, {}, {});
+            expect(response.data.followers[0].user).toBeTruthy();
+            expect(response.data.followers[0].user.name).toBe('Charlie Brown')
+        })
+
+        test('get user following', async () => {
+            const query = `
+                {
+                    following(user: "${user._id}") {
+                        follows {
+                            name
+                            username
+                            bio
+                        }
+                    }
+                }
+            `
+            const response = await tester.graphql(query, {}, {}, {});
+            expect(response.data.following[0].follows).toBeTruthy();
+            expect(response.data.following[0].follows.name).toBe('Charlie Brown');
         })
     })
 

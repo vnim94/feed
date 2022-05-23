@@ -1,18 +1,24 @@
-const User = require('../../src/user/user.model');
-const Tweet = require('../../src/tweet/tweet.model');
 const mockDatabase = require('../../util/memoryDatabase');
 const { typeDefs, resolvers } = require('../../schema');
 const EasyGraphQLTester = require('easygraphql-tester');
 const tester = new EasyGraphQLTester(typeDefs, resolvers);
 
+const User = require('../../src/user/user.model');
+const Tweet = require('../../src/tweet/tweet.model');
+const Reply = require('../../src/tweet/reply.model');
+
 let user;
+let userB;
 let tweet;
+let reply;
 
 beforeAll(async () => {
     await mockDatabase.connect();
     await mockDatabase.seed();
-    user = await User.findOne();
+    user = await User.findOne({ name: 'John Smith' });
+    userB = await User.findOne({ name: 'Charlie Brown' });
     tweet = await Tweet.findOne();
+    reply = await Reply.findOne();
 })
 
 afterAll(async () => await mockDatabase.disconnect());
@@ -31,7 +37,7 @@ describe('tweet resolvers', () => {
             expect(response.data.tweet.message).toBe('This is a tweet');
         })
 
-        describe.only('tweets', () => {
+        describe('tweets', () => {
             test('all', async () => {  
                 const query = `
                     {
@@ -56,7 +62,7 @@ describe('tweet resolvers', () => {
                 expect(response.data.tweets[0].message).toBe('This is a tweet');
             })
 
-            test.only('by tags', async () => {
+            test('by tags', async () => {
                 await Tweet.create({
                     user: user._id.toString(),
                     message: 'another tweet',
@@ -77,6 +83,63 @@ describe('tweet resolvers', () => {
                 expect(response.data.tweets[0].message).toBe('another tweet');
                 
             })
+        })
+
+        test('likes', async () => {
+            const query = `
+                {
+                    likes(content: "${tweet._id}") {
+                        user {
+                            name
+                            username
+                        }
+                    }
+                }
+            `
+            const response = await tester.graphql(query, {}, {}, {});
+            expect(response.data.likes[0].user.name).toBe('Charlie Brown');
+        })
+
+        test('replies', async () => {
+            const query = `
+                {
+                    replies(to: "${user._id}") {
+                        from {
+                            name
+                        }
+                        to {
+                            name
+                        }
+                        content 
+                        message
+                        date
+                        seen
+                    }
+                }
+            `
+            const response = await tester.graphql(query, {}, {}, {});
+            expect(response.data.replies[0].message).toBe('this is a reply');
+            expect(response.data.replies[0].from.name).toBe('Charlie Brown');
+        })
+
+        test('mentions', async () => {
+            const query = `
+                {
+                    mentions(mentioned: "${user._id}") {
+                        user {
+                            name
+                        }
+                        mentioned {
+                            name
+                        }
+                        content 
+                        date
+                        seen
+                    }
+                }
+            `
+            const response = await tester.graphql(query, {}, {}, {});
+            expect(response.data.mentions[0].mentioned.name).toBe('John Smith');
         })
     })
 
@@ -146,6 +209,69 @@ describe('tweet resolvers', () => {
                 id: tweet._id.toString()
             })
             expect(response.data.deleteTweet.id).toBe(tweet._id.toString());
+        })
+
+        test('create reply', async () => {
+            const mutation = `
+                mutation createReply($input: ReplyInput!) {
+                    createReply(input: $input) {
+                        from {
+                            name
+                        }
+                        to {
+                            name
+                        }
+                        content
+                        message
+                        date
+                        seen
+                    }
+                }
+            `
+            const response = await tester.graphql(mutation, {}, { user: user._id }, {
+                input: {
+                    to: userB._id.toString(),
+                    content: reply._id.toString(),
+                    onModel: 'Reply',
+                    message: 'replying to your reply'
+                }
+            })
+            expect(response.data.createReply.message).toBe('replying to your reply');
+        })
+
+        test('create like', async () => {
+            const mutation = `
+                mutation {
+                    createLike(content: "${reply._id}") {
+                        user {
+                            name
+                            username
+                        }
+                    }   
+                }
+            `
+            const response = await tester.graphql(mutation, {}, { user: user._id }, {});
+            expect(response.data.createLike.user.name).toBe('John Smith');
+        })
+
+        test('create mention', async () => {
+            const mutation = `
+                mutation {
+                    createMention(mentioned: "${user._id}", content: "${tweet._id}") {
+                        user {
+                            name
+                        }
+                        mentioned {
+                            name
+                        }
+                        content
+                        date
+                        seen
+                    }
+                }
+            `
+            const response = await tester.graphql(mutation, {}, { user: user._id }, {});
+            expect(response.data.createMention.mentioned.name).toBe('John Smith');
         })
     })
 })

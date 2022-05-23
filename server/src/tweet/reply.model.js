@@ -1,14 +1,24 @@
 const { Schema, model } = require('mongoose');
 
 const ReplySchema = new Schema({
-    user: {
+    from: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
-    tweet: {
+    to: {
         type: Schema.Types.ObjectId,
-        ref: 'Tweet',
+        ref: 'User',
+        required: true
+    },
+    content: {
+        type: Schema.Types.ObjectId,
+        ref: 'onModel',
+        required: true
+    },
+    onModel: {
+        type: String,
+        enum: ['Tweet', 'Reply'],
         required: true
     },
     message: {

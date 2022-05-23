@@ -17,6 +17,9 @@ exports.disconnect = async () => {
 const User = require('../src/user/user.model');
 const Follower = require('../src/user/follower.model');
 const Tweet = require('../src/tweet/tweet.model');
+const Like = require('../src/tweet/like.model');
+const Reply = require('../src/tweet/reply.model');
+const Mention = require('../src/tweet/mention.model');
 
 exports.seed = async () => {
     const user = await User.create({
@@ -45,9 +48,30 @@ exports.seed = async () => {
         follows: userB._id
     })
 
-    await Tweet.create({
+    const tweet = await Tweet.create({
         user: user._id,
         message: 'This is a tweet',
         tags: ['tagA']
+    })
+
+    await Like.create({
+        user: userB._id,
+        content: tweet._id,
+        onModel: 'Tweet'
+    })
+
+    const reply = await Reply.create({
+        from: userB._id,
+        to: user._id,
+        content: tweet._id,
+        onModel: 'Tweet',
+        message: 'this is a reply'
+    })
+
+    await Mention.create({
+        user: userB._id,
+        mentioned: user._id,
+        content: reply._id,
+        onModel: 'Reply'
     })
 }

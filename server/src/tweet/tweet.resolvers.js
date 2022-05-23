@@ -1,4 +1,7 @@
 const Tweet = require('./tweet.model');
+const Like = require('./like.model');
+const Reply = require('./reply.model');
+const Mention = require('./mention.model');
 
 const TweetResolvers = {
     Query: {
@@ -10,6 +13,15 @@ const TweetResolvers = {
             if (tags) query.tags = { $in: tags };
             if (user) query.user = user; 
             return await Tweet.find(query);
+        },
+        likes: async (_, { content }) => {
+            return await Like.find({ content }).populate('user');
+        },
+        replies: async (_, { to }) => {
+            return await Reply.find({ to }).populate('from to');
+        },
+        mentions: async (_, { mentioned }) => {
+            return await Mention.find({ mentioned }).populate('user mentioned');
         }
     },
     Mutation: {
@@ -23,6 +35,24 @@ const TweetResolvers = {
         deleteTweet: async (_, { id }, { user }) => {
             const tweet = await Tweet.findById(id);
             if (user && user === tweet.user.toString()) return await Tweet.findByIdAndDelete(id);
+        },
+        createReply: async (_, { input }, { user }) => {
+            if (user) {
+                const reply = await Reply.create({ from: user._id, ...input });
+                return await Reply.findById(reply._id).populate('from to');
+            }
+        },
+        createLike: async (_, { content }, { user }) => {
+            if (user) {
+                const like = await Like.create({ user, content });
+                return await Like.findById(like._id).populate('user');
+            }
+        },
+        createMention: async (_, { mentioned, content }, { user }) => {
+            if (user) {
+                const mention = await Mention.create({ user, mentioned, content });
+                return await Mention.findById(mention._id).populate('user mentioned');
+            }
         }
     }
 }

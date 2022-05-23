@@ -13,13 +13,11 @@ const MentionSchema = new Schema({
     },
     content: {
         type: Schema.Types.ObjectId,
-        ref: 'onModel',
         required: true
     },
-    onModel: {
-        type: String,
-        enum: ['Tweet','Reply'],
-        required: true
+    date: {
+        type: Date,
+        default: Date.now
     },
     seen: { 
         type: Boolean,

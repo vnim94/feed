@@ -8,12 +8,6 @@ const LikeSchema = new Schema({
     },
     content: {
         type: Schema.Types.ObjectId,
-        ref: 'onModel',
-        required: true
-    },
-    onModel: {
-        type: String,
-        enum: ['Tweet','Reply'],
         required: true
     }
 })

@@ -6,6 +6,9 @@ const UserTypes = `
         phone: String
         username: String!
         password: String!
+        picture: String
+        header: String
+        bio: String
     }
 
     input UserInput {
@@ -14,6 +17,9 @@ const UserTypes = `
         phone: String
         username: String
         password: String
+        picture: String
+        header: String
+        bio: String
     }
 
     type AuthPayload {
@@ -21,9 +27,15 @@ const UserTypes = `
         user: User!
     }
 
+    type Follower {
+        user: User!
+        follower: User!
+    }
+
     type Query {
-        user(id: ID): User!
+        user(id: ID!): User!
         users: [User]!
+        followers(user: ID!): [Follower]!
     }
 
     type Mutation {

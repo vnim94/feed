@@ -31,17 +31,17 @@ const UserResolvers = {
         createUser: async (_, { user }) => {
             return await User.create(user);
         },
-        updateUser: async (_, { id, user }) => {
-            return await User.findByIdAndUpdate(id, user, { new: true });
+        updateUser: async (_, { id, user }, { userId }) => {
+            if (userId && userId === id) return await User.findByIdAndUpdate(id, user, { new: true });
         },
-        updateEmail: async (_, { id, email }) => {
-            return await User.findByIdAndUpdate(id, { email }, { new: true });
+        updateEmail: async (_, { id, email }, { userId }) => {
+            if (userId && userId === id) return await User.findByIdAndUpdate(id, { email }, { new: true });
         },
-        updatePhone: async (_, { id, phone }) => {
-            return await User.findByIdAndUpdate(id, { phone }, { new: true });
+        updatePhone: async (_, { id, phone }, { userId }) => {
+            if (userId && userId === id) return await User.findByIdAndUpdate(id, { phone }, { new: true });
         },
-        deleteUser: async (_, { id }) => {
-            return await User.findByIdAndDelete(id);
+        deleteUser: async (_, { id }, { userId }) => {
+            if (userId && userId === id) return await User.findByIdAndDelete(id);
         }
     }
 }

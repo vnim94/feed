@@ -19,6 +19,12 @@ const UserSchema = new mongoose.Schema({
         minLength: 5,
         maxLength: 25,
         required: true
+    },
+    picture: String,
+    header: String,
+    bio: {
+        type: String,
+        mmaxLength: 160
     }
 })
 

@@ -15,6 +15,7 @@ exports.disconnect = async () => {
 }
 
 const User = require('../src/user/user.model');
+const Follower = require('../src/user/follower.model');
 const Tweet = require('../src/tweet/tweet.model');
 
 exports.seed = async () => {
@@ -22,8 +23,27 @@ exports.seed = async () => {
         name: 'John Smith',
         email: 'jsmith@email.com',
         phone: '0123456789',
-        password: 'password'
+        password: 'password',
+        bio: 'My name is John Smith'
     });
+
+    const userB = await User.create({
+        name: 'Charlie Brown',
+        email: 'ccbrown@email.com',
+        phone: '0123456789',
+        password: 'password',
+        bio: 'My name is Charlie Brown'
+    })
+
+    await Follower.create({
+        user: userB._id,
+        follows: user._id  
+    })
+
+    await Follower.create({
+        user: user._id,
+        follows: userB._id
+    })
 
     await Tweet.create({
         user: user._id,

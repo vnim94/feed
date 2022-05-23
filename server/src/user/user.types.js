@@ -29,13 +29,14 @@ const UserTypes = `
 
     type Follower {
         user: User!
-        follower: User!
+        follows: User!
     }
 
     type Query {
         user(id: ID!): User!
         users: [User]!
         followers(user: ID!): [Follower]!
+        following(user: ID!): [Follower]!
     }
 
     type Mutation {

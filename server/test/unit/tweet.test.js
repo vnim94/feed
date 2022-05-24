@@ -245,6 +245,17 @@ describe('tweet resolvers', () => {
             expect(response.data.createReply.message).toBe('replying to your reply');
         })
 
+        test('delete reply', async () => {
+            const mutation = `
+                mutation {
+                    deleteReply(id: "${reply._id}") 
+                }
+            `
+            const response = await tester.graphql(mutation, {}, { user: userB._id.toString() }, {});
+            console.log(response);
+            expect(response.data.deleteReply).toBe(reply._id.toString());
+        })
+
         test('create like', async () => {
             const mutation = `
                 mutation {

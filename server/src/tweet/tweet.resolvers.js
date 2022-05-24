@@ -42,6 +42,13 @@ const TweetResolvers = {
                 return await Reply.findById(reply._id).populate('from to');
             }
         },
+        deleteReply: async (_, { id }, { user }) => {
+            const reply = await Reply.findById(id);
+            if (user && user === reply.from.toString()) {
+                await Reply.findByIdAndDelete(id);
+                return id;
+            }
+        },
         createLike: async (_, { content }, { user }) => {
             if (user) {
                 const like = await Like.create({ user, content });

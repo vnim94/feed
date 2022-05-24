@@ -58,6 +58,7 @@ const TweetTypes = `
         createLike(content: ID!): Like
         deleteLike(id: ID!): ID
         createReply(input: ReplyInput!): Reply
+        updateReply(id: ID!, message: String!): Reply
         deleteReply(id: ID!): ID
         createMention(mentioned: ID!, content: ID!): Mention
         deleteMention(id: ID!): ID

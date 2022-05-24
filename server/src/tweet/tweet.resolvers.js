@@ -42,6 +42,12 @@ const TweetResolvers = {
                 return await Reply.findById(reply._id).populate('from to');
             }
         },
+        updateReply: async (_, { id, message }, { user }) => {
+            const reply = await Reply.findById(id);
+            if (user && user === reply.from.toString()) {
+                return await Reply.findByIdAndUpdate(id, { message }, { new: true }).populate('from to');
+            }
+        },
         deleteReply: async (_, { id }, { user }) => {
             const reply = await Reply.findById(id);
             if (user && user === reply.from.toString()) {

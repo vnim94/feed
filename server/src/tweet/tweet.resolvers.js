@@ -48,10 +48,24 @@ const TweetResolvers = {
                 return await Like.findById(like._id).populate('user');
             }
         },
+        deleteLike: async (_, { id }, { user }) => {
+            const like = await Like.findById(id);
+            if (user && user === like.user.toString()) {
+                await Like.findByIdAndDelete(id);
+                return id;
+            }
+        },
         createMention: async (_, { mentioned, content }, { user }) => {
             if (user) {
                 const mention = await Mention.create({ user, mentioned, content });
                 return await Mention.findById(mention._id).populate('user mentioned');
+            }
+        },
+        deleteMention: async (_, { id }, { user }) => {
+            const mention = await Mention.findById(id);
+            if (user && (user === mention.user._id.toString() || user === mention.mentioned._id.toString())) {
+                await Mention.findByIdAndDelete(id);
+                return id;
             }
         }
     }

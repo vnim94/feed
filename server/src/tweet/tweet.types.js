@@ -14,6 +14,7 @@ const TweetTypes = `
     }
 
     type Like {
+        id: ID!
         user: User!
         content: ID!
     }
@@ -55,8 +56,10 @@ const TweetTypes = `
         updateTweet(id: ID!, input: TweetInput!): Tweet
         deleteTweet(id: ID!): Tweet
         createLike(content: ID!): Like
+        deleteLike(id: ID!): ID
         createReply(input: ReplyInput!): Reply
         createMention(mentioned: ID!, content: ID!): Mention
+        deleteMention(id: ID!): ID
     }
 `
 

@@ -6,11 +6,15 @@ const tester = new EasyGraphQLTester(typeDefs, resolvers);
 const User = require('../../src/user/user.model');
 const Tweet = require('../../src/tweet/tweet.model');
 const Reply = require('../../src/tweet/reply.model');
+const Mention = require('../../src/tweet/mention.model');
+const Like = require('../../src/tweet/like.model');
 
 let user;
 let userB;
 let tweet;
 let reply;
+let mention;
+let like;
 
 beforeAll(async () => {
     await mockDatabase.connect();
@@ -19,6 +23,8 @@ beforeAll(async () => {
     userB = await User.findOne({ name: 'Charlie Brown' });
     tweet = await Tweet.findOne();
     reply = await Reply.findOne();
+    mention = await Mention.findOne();
+    like = await Like.findOne();
 })
 
 afterAll(async () => await mockDatabase.disconnect());
@@ -254,6 +260,16 @@ describe('tweet resolvers', () => {
             expect(response.data.createLike.user.name).toBe('John Smith');
         })
 
+        test('delete like', async () => {
+            const mutation = `
+                mutation {
+                    deleteLike(id: "${like._id}") 
+                }
+            `
+            const response = await tester.graphql(mutation, {}, { user: userB._id.toString() }, {});
+            expect(response.data.deleteLike).toBe(like._id.toString());
+        })
+
         test('create mention', async () => {
             const mutation = `
                 mutation {
@@ -272,6 +288,16 @@ describe('tweet resolvers', () => {
             `
             const response = await tester.graphql(mutation, {}, { user: user._id }, {});
             expect(response.data.createMention.mentioned.name).toBe('John Smith');
+        })
+
+        test('delete mention', async () => {
+            const mutation = `
+                mutation {
+                    deleteMention(id: "${mention._id}")
+                }
+            `
+            const response = await tester.graphql(mutation, {}, { user: user._id.toString() }, {});
+            expect(response.data.deleteMention).toBe(mention._id.toString());
         })
     })
 })

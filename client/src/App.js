@@ -13,7 +13,9 @@ function App() {
                     <Route path="signup" element={<Signup/>} />
                 </Route>
                 <Route path="home" element={<Home/>}/>
-                <Route path="explore" element={<Explore/>}/>
+                <Route path="explore" element={<Explore/>}>
+                    <Route path="tabs/:tab" element={<Explore/>}/>
+                </Route>
             </Routes>
         </Router>
     )

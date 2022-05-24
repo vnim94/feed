@@ -132,28 +132,36 @@ export function ImgCard({ heading, text, topic, live }) {
     )
 }
 
-export function TrendCard({ heading, ranking, text, img }) {
+export function TrendCard({ title, ranking, tweets, image }) {
     return (
-        <div className="p-3 flex flex-row justify-between hover:bg-grey-1 cursor-pointer">
-            <div>
-                <div className="flex flex-row space-x-1">
-                    <div>
-                        <span className="text-sm text-grey-5">{ranking}</span>
-                        <span className="text-sm text-grey-5">&#183;</span>
-                        <span className="text-sm text-grey-5">Trending</span>
-                    </div>
-                    <span className="px-1 py-1 text-grey-5 material-icons-outlined hover:bg-green-1 rounded-full cursor-pointer">more_horiz</span>
+        <div className="p-3 flex flex-col hover:bg-grey-1 cursor-pointer">
+            <div className="relative flex flex-row">
+                <div className="flex flex-row space-x-1 text-sm text-grey-5">
+                    <span>{ranking}</span>
+                    <span>&#183;</span>
+                    <span>Trending</span>
                 </div>
-                <div className="flex flex-row items-center justify-between">
-                    <span className="font-bold">{heading}</span>
-                </div>
-                <div>
-                    <span className="text-grey-5">{text}</span>
-                </div>
+                <span className="absolute px-1 py-1 right-0 text-grey-5 material-icons-outlined hover:bg-green-1 rounded-full cursor-pointer">more_horiz</span>
             </div>
-            <div>
-                {img && <img alt="small"></img>}
+            <div className="mb-3 flex flex-row">
+                <span className="font-bold">{title}</span>
             </div>
+            <EmbeddedCard topic="Topic" title="Title" image="/phunky-panda.png"/>
+            <div>
+                <span className="text-grey-5">{tweets.toLocaleString('en')} Tweets</span>
+            </div>
+        </div>
+    )
+}
+
+function EmbeddedCard({ topic, title, image }) {
+    return (
+        <div className="border border-grey-3 h-32 rounded-xl flex flex-row items-center justify-between">
+            <div className="p-3 h-full w-full rounded-tl-xl rounded-bl-xl flex flex-col justify-center hover:bg-grey-4">
+                <span>{topic}</span>
+                <span>{title}</span>
+            </div>
+            <img className="h-full rounded-tr-xl rounded-br-xl" src={image} alt="embedded card"></img>
         </div>
     )
 }

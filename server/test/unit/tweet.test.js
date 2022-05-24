@@ -21,13 +21,23 @@ beforeAll(async () => {
     await mockDatabase.seed();
     user = await User.findOne({ name: 'John Smith' });
     userB = await User.findOne({ name: 'Charlie Brown' });
-    tweet = await Tweet.findOne();
+    tweet = await Tweet.findOne().populate('replies likes');
     reply = await Reply.findOne();
     mention = await Mention.findOne();
     like = await Like.findOne();
 })
 
 afterAll(async () => await mockDatabase.disconnect());
+
+describe('tweet model', () => {
+    test('replies', async () => {
+        expect(tweet.replies).toBe(1);
+    })
+
+    test('likes', async () => {
+        expect(tweet.likes).toBe(1);
+    })
+})
 
 describe('tweet resolvers', () => {
     describe('queries', () => {
@@ -36,11 +46,15 @@ describe('tweet resolvers', () => {
                 {
                     tweet(id: "${tweet._id.toString()}") {
                         message
+                        replies
+                        likes
                     }
                 }
             `
             const response = await tester.graphql(query, {}, {}, {});
             expect(response.data.tweet.message).toBe('This is a tweet');
+            expect(response.data.tweet.replies).toBe(1);
+            expect(response.data.tweet.likes).toBe(1);
         })
 
         describe('tweets', () => {
@@ -49,11 +63,15 @@ describe('tweet resolvers', () => {
                     {
                         tweets {
                             message
+                            replies
+                            likes
                         }
                     }
                 `
                 const response = await tester.graphql(query, {}, {}, {});
                 expect(response.data.tweets[0].message).toBe('This is a tweet');
+                expect(response.data.tweets[0].replies).toBe(1);
+                expect(response.data.tweets[0].likes).toBe(1);
             })
 
             test('by user', async () => {
@@ -61,11 +79,15 @@ describe('tweet resolvers', () => {
                     {
                         tweets(user: "${user._id}") {
                             message
+                            replies
+                            likes
                         }
                     }
                 `
                 const response = await tester.graphql(query, {}, {}, {});
                 expect(response.data.tweets[0].message).toBe('This is a tweet');
+                expect(response.data.tweets[0].replies).toBe(1);
+                expect(response.data.tweets[0].likes).toBe(1);
             })
 
             test('by tags', async () => {
@@ -87,7 +109,6 @@ describe('tweet resolvers', () => {
                 })
                 expect(response.data.tweets.length).toBe(1);
                 expect(response.data.tweets[0].message).toBe('another tweet');
-                
             })
         })
 
@@ -238,7 +259,6 @@ describe('tweet resolvers', () => {
                 input: {
                     to: userB._id.toString(),
                     content: reply._id.toString(),
-                    onModel: 'Reply',
                     message: 'replying to your reply'
                 }
             })
@@ -276,19 +296,37 @@ describe('tweet resolvers', () => {
             expect(response.data.deleteReply).toBe(reply._id.toString());
         })
 
-        test('create like', async () => {
-            const mutation = `
-                mutation {
-                    createLike(content: "${reply._id}") {
-                        user {
-                            name
-                            username
-                        }
-                    }   
-                }
-            `
-            const response = await tester.graphql(mutation, {}, { user: user._id }, {});
-            expect(response.data.createLike.user.name).toBe('John Smith');
+        describe('create like', () => {
+            test('new like', async () => {
+                const mutation = `
+                    mutation {
+                        createLike(content: "${reply._id}") {
+                            user {
+                                name
+                                username
+                            }
+                        }   
+                    }
+                `
+                const response = await tester.graphql(mutation, {}, { user: user._id }, {});
+                expect(response.data.createLike.user.name).toBe('John Smith');
+            })
+
+            test('like already exists returns null', async () => {
+                const mutation = `
+                    mutation {
+                        createLike(content: "${reply._id}") {
+                            user {
+                                name
+                                username
+                            }
+                        }   
+                    }
+                `
+                const response = await tester.graphql(mutation, {}, { user: user._id }, {});
+                expect(response.data.createLike).toBeNull();
+            })
+
         })
 
         test('delete like', async () => {

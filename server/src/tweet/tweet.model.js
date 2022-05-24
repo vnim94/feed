@@ -18,6 +18,22 @@ const TweetSchema = new Schema({
         type: Date,
         default: Date.now
     }
+}, {
+    toJSON: { virtuals: true }
+})
+
+TweetSchema.virtual('replies', {
+    ref: 'Reply',
+    localField: '_id',
+    foreignField: 'content',
+    count: true
+})
+
+TweetSchema.virtual('likes', {
+    ref: 'Like',
+    localField: '_id',
+    foreignField: 'content',
+    count: true
 })
 
 module.exports = model('Tweet',TweetSchema);

@@ -6,13 +6,13 @@ const Mention = require('./mention.model');
 const TweetResolvers = {
     Query: {
         tweet: async (_, { id }) => {
-            return await Tweet.findById(id);
+            return await Tweet.findById(id).populate('replies likes');
         },
         tweets: async (_, { tags, user }) => {
             const query = {}
             if (tags) query.tags = { $in: tags };
             if (user) query.user = user; 
-            return await Tweet.find(query);
+            return await Tweet.find(query).populate('replies likes');
         },
         likes: async (_, { content }) => {
             return await Like.find({ content }).populate('user');
@@ -56,7 +56,7 @@ const TweetResolvers = {
             }
         },
         createLike: async (_, { content }, { user }) => {
-            if (user) {
+            if (user && await notLiked(user._id, content)) {
                 const like = await Like.create({ user, content });
                 return await Like.findById(like._id).populate('user');
             }
@@ -82,6 +82,11 @@ const TweetResolvers = {
             }
         }
     }
+}
+
+const notLiked = async (user, content) => {
+    if (await Like.findOne({ user, content })) return false;
+    return true;
 }
 
 module.exports = TweetResolvers;

@@ -5,6 +5,8 @@ const TweetTypes = `
         image: String
         message: String!
         date: Date!
+        replies: Int!
+        likes: Int!
     }
 
     input TweetInput {
@@ -31,7 +33,6 @@ const TweetTypes = `
     input ReplyInput {
         to: String!
         content: String
-        onModel: String
         message: String
     }
 
@@ -47,7 +48,7 @@ const TweetTypes = `
         tweet(id: ID!): Tweet!
         tweets(user: ID, tags: [String]): [Tweet]!
         likes(content: ID): [Like]!
-        replies(to: ID!): [Reply]!
+        replies(to: ID): [Reply]!
         mentions(mentioned: ID!): [Mention]!
     }
 

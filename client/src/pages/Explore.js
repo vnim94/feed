@@ -4,7 +4,7 @@ import SearchBar from '../components/Search';
 import NavBar from '../components/NavBar';
 import Aside, { AsideCard, WhoItem, WhatItem } from '../components/Aside';
 import Feed, { Card, ImgCard, SectionBanner, TrendCard } from '../components/Feed';
-import Tabs from '../components/Tabs';
+import Tabs, { Tab } from '../components/Tabs';
 
 function Explore() {
 
@@ -34,7 +34,13 @@ function Explore() {
                         <span className="px-2 py-1 text-xl text-grey-6 material-icons-outlined rounded-full hover:bg-green-1 cursor-pointer">settings</span>
                     </div>
                 </div>
-                <Tabs/>
+                <Tabs>
+                    <Tab text="For you" link="/explore/tabs/for-you"/>
+                    <Tab text="Trending" link="/explore/tabs/trending"/>
+                    <Tab text="News" link="/explore/tabs/news"/>
+                    <Tab text="Sports" link="/explore/tabs/sports"/>
+                    <Tab text="Entertainment" link="/explore/tabs/entertainment"/>
+                </Tabs>
                 {selectedTab(tab)}
             </Feed>
             <Aside>

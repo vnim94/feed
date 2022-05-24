@@ -65,26 +65,44 @@ function Home() {
 function Trending() {
     return (
         <div>
-            <TrendCard title="Title" ranking={1} tweets={2228}/>
+            <div className="p-3">
+                <span className="font-bold text-xl">Australia trends</span>
+            </div>
+            <TrendCard title="Title" ranking={1} tweets={155000} image="/phunky-panda.png"/>
         </div>
     )
 }
 
 function News() {
     return (
-        <div></div>
+        <div>
+            <ImgCard heading="Heading" text="text" topic="topic" live={true}/>
+            <WhatItem heading="Heading" text="text" topic="Topic" icon={true} live={true}/>
+            <WhatItem heading="Heading" text="text" topic="Topic" img="/phunky-panda.png"/>
+            <WhatItem heading="Heading" text="text" topic="Topic" icon={true} live={true}/>
+        </div>
     )
 }
 
 function Sports() {
     return (
-        <div></div>
+        <div>
+            <ImgCard heading="Heading" text="text" topic="topic" live={true}/>
+            <WhatItem heading="Heading" text="text" topic="Topic" icon={true} live={true}/>
+            <WhatItem heading="Heading" text="text" topic="Topic" img="/phunky-panda.png"/>
+            <WhatItem heading="Heading" text="text" topic="Topic" icon={true} live={true}/>
+        </div>
     )
 }
 
 function Entertainment() {
     return (
-        <div></div>
+        <div>
+            <ImgCard heading="Heading" text="text" topic="topic" live={true}/>
+            <WhatItem heading="Heading" text="text" topic="Topic" icon={true} live={true}/>
+            <WhatItem heading="Heading" text="text" topic="Topic" img="/phunky-panda.png"/>
+            <WhatItem heading="Heading" text="text" topic="Topic" icon={true} live={true}/>
+        </div>
     )
 }
 

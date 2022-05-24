@@ -146,9 +146,9 @@ export function TrendCard({ title, ranking, tweets, image }) {
             <div className="mb-3 flex flex-row">
                 <span className="font-bold">{title}</span>
             </div>
-            <EmbeddedCard topic="Topic" title="Title" image="/phunky-panda.png"/>
+            <EmbeddedCard topic="Topic" title="Title" image={image}/>
             <div>
-                <span className="text-grey-5">{tweets.toLocaleString('en')} Tweets</span>
+                <span className="text-grey-5">{tweets && tweets > 9999 ? `${(tweets/1000).toFixed(1)}K` : tweets.toLocaleString('en')} Tweets</span>
             </div>
         </div>
     )

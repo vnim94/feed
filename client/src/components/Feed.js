@@ -166,4 +166,32 @@ function EmbeddedCard({ topic, title, image }) {
     )
 }
 
+export function NotificationCard() {
+    return (
+        <div className="px-4 py-2 w-full border-b border-b-grey-3 grid grid-cols-[1fr_8fr] hover:bg-grey-1 cursor-pointer">
+            <div className="mt-2 mr-3">
+                <span className="text-4xl text-green-4 material-icons">auto_awesome</span>
+            </div>
+            <div className="flex flex-col flex-grow space-y-2">
+                <div className="flex flex-row items-center justify-between">
+                    <div className="flex flex-row items-center space-x-1">
+                        <img className="h-10 w-10 border border-grey-4 rounded-full" src="/phunky-panda.png" alt="avatar"></img>
+                    </div>
+                    <span className="py-1 px-2 text-xl material-icons-outlined rounded-full hover:bg-green-1 cursor-pointer">more_horiz</span>
+                </div>
+                <div>
+                    <span className="font-bold">User</span><span> liked a Tweet from %</span>
+                </div>
+                <div>
+                    <p className="text-grey-5">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris quis viverra dui. 
+                        Aliquam in lacinia neque, id fringilla nulla. Fusce eget pharetra libero, nec posuere dolor. Mauris sagittis luctus faucibus. 
+                        Ut quis condimentum turpis. Sed pellentesque quam nisi, in mattis sem pellentesque ac. Proin non faucibus erat. Fusce a luctus est.
+                    </p>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 export default Feed;

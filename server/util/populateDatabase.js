@@ -19,8 +19,8 @@ let users = [];
 let tweets = [];
 let replies = [];
 
-function getRandomIndex(array) {
-    return Math.floor(Math.random() * array.length);
+function getRandomIndex(length) {
+    return Math.floor(Math.random() * length);
 }
 
 function createUser(details, callback) {
@@ -67,7 +67,7 @@ function createLike(user, content, callback) {
 
         console.log(`[INFO] New like created: ${like._id.toString()}`);
         callback(null, like);
-    })
+    });
 }
 
 function createReply(details, callback) {
@@ -88,7 +88,7 @@ function createReply(details, callback) {
 
 function createMention(details, callback) {
     const mention = new Mention(details);
-
+    
     mention.save((err) => {
         if (err) {
             console.log(`[ERROR] Error creating mention: ${mention._id.toString()} - ${err}`);
@@ -139,17 +139,12 @@ function populateReplies(callback) {
 
     for (let i = 0; i < 75; i++) {
         let tweet = tweets[getRandomIndex(tweets.length)];
-        let reply = replies[getRandomIndex(replies.length)];
-        let content;
-        Math.round(Math.random()) === 1 ? content = tweet._id : content = reply._id;
-
         let sender = users.find(user => user._id.toString() !== tweet.user.toString());
-
         let details = {
             from: sender,
             to: tweet.user,
-            content, 
-            message: faker.lorem.sentences(2)
+            content: tweet._id, 
+            message: faker.lorem.sentence()
         }
         repliesToCreate.push(function(callback) { createReply(details, callback) });
     }
@@ -166,7 +161,7 @@ function populateLikes(callback) {
         let content;
         Math.round(Math.random()) === 1 ? content = tweet._id : content = reply._id;
 
-        likesToCreate.push(function(callback) { createLike(users[getRandomIndex(users.length)], content) });
+        likesToCreate.push(function(callback) { createLike(users[getRandomIndex(users.length)]._id, content, callback) });
     }
 
     async.series(likesToCreate, callback);
@@ -182,16 +177,18 @@ function populateMentions(callback) {
         Math.round(Math.random()) === 1 ? content = tweet._id : content = reply._id;
 
         let selectedUser = users[getRandomIndex(users.length)]._id;
-
+        let mentioned = users.find(user => user._id.toString() !== selectedUser.toString())._id
+        
         let details = {
             user: selectedUser,
-            mentioned: users.find(user => user._id.toString() !== selectedUser._id.toString()),
+            mentioned,
             content
         }
+        
         mentionsToCreate.push(function(callback) { createMention(details, callback) });
     }
 
-    async.series[mentionsToCreate, callback];
+    async.series(mentionsToCreate, callback);
 }
 
 console.log('[INFO] Populating database...');
